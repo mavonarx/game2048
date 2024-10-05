@@ -8,9 +8,9 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
-  stage('Quality Gate') {
+  stage("Quality gate") {
     steps {
-        waitForQualityGate abortPipeline: true
+      waitForQualityGate abortPipeline: true
     }
   }
 }
