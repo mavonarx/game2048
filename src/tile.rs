@@ -10,7 +10,7 @@ impl Tile {
     // Constructor
     pub fn new(exponent: u32) -> Self {
         Self {
-            exponent: exponent,
+            exponent,
             merged: false,
         }
     }
