@@ -20,7 +20,7 @@ impl Tile {
     }
 
     pub fn get_number(&self) -> u32 {
-        (2 as u32).pow(self.exponent)
+        2_u32.pow(self.exponent)
     }
 
     pub fn double(&mut self) {
