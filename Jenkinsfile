@@ -1,14 +1,27 @@
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner';
-    withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
+pipeline {
+    agent any
+
+    stages {
+        stage('SCM') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarScanner'
+                    withSonarQubeEnv {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
+        stage('Quality gate') {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
     }
-  }
-  stage("Quality gate") {
-      waitForQualityGate abortPipeline: true
-  }
 }
+
